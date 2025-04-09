@@ -7,3 +7,50 @@ body {
     margin-inline: max(1em, (100% - 100ch) / 2);
     padding: 0 1em;
   }
+
+/* Step 2.2: Using Flexbox to lay out the navigation */
+nav {
+    display: flex;
+  }
+  
+  nav a {
+    flex: 1;
+  }
+
+/* Step 2.3: Adding Some Style */
+nav a {
+    text-decoration: none;  /* Remove the underline */
+    color: inherit;         /* Use the inherited text color */
+    text-align: center;     /* Center the text inside each link */
+    padding: 0.5em;         /* Add spacing inside each link */
+  }
+  
+  nav {
+    margin-bottom: 1em;       /* Space below the nav to separate from content */
+    border-bottom: 1px solid oklch(80% 3% 200); /* Bottom border with a subtle cool-gray color */
+  }
+  
+  /* Style for the current page link */
+  nav a.current {
+    border-bottom: 0.4em solid oklch(80% 3% 200); /* Thick bottom border */
+    padding-bottom: calc(0.5em - 0.4em);           /* Reduce bottom padding to counter the added border */
+  }
+
+/* Step 2.4: Accent Color and Hover Styles */
+/* Define the accent color globally */
+:root {
+    --color-accent: oklch(65% 50% 0);
+  }
+  
+  /* Make sure form elements or other elements that use accent-color inherit it */
+  html {
+    accent-color: var(--color-accent);
+  }
+  
+  /* Hover effect for navigation links */
+  nav a:hover {
+    border-bottom: 0.4em solid var(--color-accent); /* Same border thickness on hover using the accent color */
+    /* Optionally, add a light background with the same hue as the accent color */
+    background-color: oklch(from var(--color-accent) 95% 5% h);
+  }
+  
