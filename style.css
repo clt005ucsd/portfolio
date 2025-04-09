@@ -13,7 +13,7 @@ nav {
     display: flex;
   }
   
-  nav a {
+nav a {
     flex: 1;
   }
 
@@ -25,12 +25,12 @@ nav a {
     padding: 0.5em;        
   }
   
-  nav {
+nav {
     margin-bottom: 1em;      
     border-bottom: 1px solid oklch(80% 3% 200); 
   }
   
-  nav a.current {
+nav a.current {
     border-bottom: 0.4em solid oklch(80% 3% 200); 
     padding-bottom: calc(0.5em - 0.4em);       
   }
@@ -40,11 +40,11 @@ nav a {
     --color-accent: oklch(65% 50% 0);
   }
   
-  html {
+html {
     accent-color: var(--color-accent);
   }
 
-  nav a:hover {
+nav a:hover {
     border-bottom: 0.4em solid var(--color-accent);
     background-color: oklch(from var(--color-accent) 95% 5% h);
   }
@@ -97,27 +97,28 @@ form {
     gap: 1em;
   }
   
-  /* Step 4.3: Aligning Content with Subgrid */
-  .projects article {
+/* Step 4.3: Aligning Content with Subgrid */
+.projects article {
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 3;
   }
   
-  .projects article h2 {
+.projects article h2 {
     margin: 0;
   }
   
   /* Step 4.4: Finishing Touches */
-  h1 {
+h1 {
     font-size: 400%;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
     line-height: 1.1;
     text-wrap: balance;
   }
 
+/* Step 5: Style your Resume */
 .resume header {
   text-align: center;
   margin-bottom: 1.5em;
@@ -143,31 +144,3 @@ form {
   line-height: 1.5;
   margin-bottom: 1em;
 }
-
-/* Step 5: Style your Resume */
-.resume header {
-    text-align: center;
-    margin-bottom: 1.5em;
-  }
-  
-  .resume header h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.3em;
-  }
-  
-  .resume section {
-    margin-bottom: 1.5em;
-  }
-  
-  .resume section h2 {
-    font-size: 1.5em;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.3em;
-    margin-bottom: 0.5em;
-  }
-  
-  .resume p {
-    line-height: 1.5;
-    margin-bottom: 1em;
-  }
-  
