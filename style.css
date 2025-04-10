@@ -135,8 +135,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .resume section h2 {
   font-size: 1.5em;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 0.3em;
   margin-bottom: 0.5em;
 }
 
