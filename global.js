@@ -57,7 +57,7 @@ themeSelect.addEventListener('input', function (event) {
 // Step 3.1: Navigation Menu
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"                
-  : "/website/";
+  : "/portfolio/";
 
 let pages = [
     { url: '', title: 'Home' },
