@@ -142,3 +142,17 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.5;
   margin-bottom: 1em;
 }
+/* Lab 3 Step 4 */
+:root {
+    --color-accent: oklch(65% 50% 0);
+    color-scheme: light dark;
+}
+
+nav {
+    --border-color: oklch(50% 10% 200 / 40%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+nav a:hover {
+    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
