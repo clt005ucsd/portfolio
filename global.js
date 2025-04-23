@@ -120,3 +120,52 @@ if (form) {
     location.href = mailto;
   });
 }
+
+export async function fetchJSON(url) {
+  try {
+    // Fetch the JSON file from the given URL
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching JSON:', error);
+    return []; // fail gracefully
+  }
+}
+
+export function renderProjects(projects, container, headingLevel = 'h2') {
+  if (!(container instanceof HTMLElement)) {
+    console.error('renderProjects: invalid container', container);
+    return;
+  }
+  // Clear existing
+  container.innerHTML = '';
+  // If no projects, show placeholder
+  if (!projects.length) {
+    container.textContent = 'No projects to display.';
+    return;
+  }
+  for (const proj of projects) {
+    const article = document.createElement('article');
+
+    // Dynamic heading
+    const h = document.createElement(headingLevel);
+    h.textContent = proj.title || '';
+    article.append(h);
+
+    // Image
+    const img = document.createElement('img');
+    img.src = proj.image || '';
+    img.alt = proj.title || '';
+    article.append(img);
+
+    // Description
+    const p = document.createElement('p');
+    p.textContent = proj.description || '';
+    article.append(p);
+
+    container.append(article);
+  }
+}
