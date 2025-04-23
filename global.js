@@ -169,3 +169,6 @@ export function renderProjects(projects, container, headingLevel = 'h2') {
     container.append(article);
   }
 }
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}
