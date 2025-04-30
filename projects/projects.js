@@ -8,7 +8,8 @@ let selectedIndex = -1;
   // 1. Load projects and render list
   const projects = await fetchJSON('../lib/projects.json');
   document.querySelector('.projects-title').textContent = `${projects.length} Projects`;
-  renderProjects(projects, document.querySelector('.projects'), 'h2');
+  const projectsContainer = document.querySelector('.projects');
+  renderProjects(projects, projectsContainer, 'h2');
 
   // 2. Roll up projects by year
   const rolled = d3.rollups(
