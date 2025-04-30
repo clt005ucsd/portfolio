@@ -152,24 +152,29 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
 }
 
+/* fade out non-hovered slices */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
 
+/* smooth transition & pointer */
 #projects-pie-plot path {
-  transition: opacity 300ms;
   cursor: pointer;
+  transition: opacity 300ms;
 }
 
+/* highlight the clicked slice */
 #projects-pie-plot path.selected {
   --color: oklch(60% 45% 0) !important;
   fill: var(--color) !important;
 }
 
+/* make legend items clickable */
 .legend li {
   cursor: pointer;
 }
 
+/* highlight the selected legend swatch */
 .legend li.selected .swatch {
   --color: oklch(60% 45% 0) !important;
   background: var(--color) !important;

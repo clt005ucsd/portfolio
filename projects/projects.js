@@ -1,15 +1,16 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 import { fetchJSON, renderProjects } from '../global.js';
 
-// 5.2: selectedIndex tracks which slice is “active”; -1 means none
+// track which slice is active; -1 means “none”
 let selectedIndex = -1;
 
 ;(async () => {
-  // 1 & 2 & 3 & 4: load projects, render list, prepare pie data
+  // 1. Load projects and render list
   const projects = await fetchJSON('../lib/projects.json');
   document.querySelector('.projects-title').textContent = `${projects.length} Projects`;
   renderProjects(projects, document.querySelector('.projects'), 'h2');
 
+  // 2. Roll up projects by year
   const rolled = d3.rollups(
     projects,
     v => v.length,
@@ -17,15 +18,17 @@ let selectedIndex = -1;
   );
   const data = rolled.map(([year, count]) => ({ label: year, value: count }));
 
+  // 3. Create arc + pie generators
   const arcGen = d3.arc().innerRadius(0).outerRadius(50);
   const pieGen = d3.pie().value(d => d.value);
   const arcs = pieGen(data).map(arcGen);
 
+  // 4. Grab our SVG & legend containers
   const svg = d3.select('#projects-pie-plot');
   const legend = d3.select('.legend');
   const colorScale = d3.scaleOrdinal(d3.schemeTableau10);
 
-  // Step 5.2: draw slices with inline click handler
+  // 5.2: Draw slices with inline click handler
   svg.selectAll('path').remove();
   arcs.forEach((arc, i) => {
     const slice = svg.append('path')
@@ -48,7 +51,7 @@ let selectedIndex = -1;
     });
   });
 
-  // Step 5.2: build legend items with same click logic
+  // 5.2: Build legend items with same click logic
   legend.selectAll('li').remove();
   data.forEach((d, i) => {
     const item = legend.append('li')
