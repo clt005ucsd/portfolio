@@ -1,5 +1,5 @@
 :root {
-  --color-accent: oklch(65% 50% 0);
+  --highlight-color: #ffff00;
   --border-color: oklch(50% 10% 200 / 40%);
   color-scheme: light dark;
 }
@@ -165,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* highlight the clicked slice */
 #projects-pie-plot path.selected {
-  --color: oklch(60% 45% 0) !important;
+  --color: var(--highlight-color) !important;
   fill: var(--color) !important;
 }
 
@@ -176,6 +176,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* highlight the selected legend swatch */
 .legend li.selected .swatch {
-  --color: oklch(60% 45% 0) !important;
+  --color: var(--highlight-color) !important;
   background: var(--color) !important;
 }

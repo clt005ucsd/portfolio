@@ -81,7 +81,7 @@ let query = '';           // current search filter
 
 
   // ------------------------------------------------------
-  // Step 5.3: filtering routine that combines search + slice
+  // Step 5.4: filtering routine that combines search + slice
   // ------------------------------------------------------
   function applySliceAndFilter() {
     // first: text‐filter
