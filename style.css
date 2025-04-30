@@ -1,8 +1,10 @@
 :root {
   --color-accent: oklch(65% 50% 0);
+  --border-color: oklch(50% 10% 200 / 40%);
   color-scheme: light dark;
 }
 
+/* 1. Base Styles */
 body {
   font: 100%/1.5 system-ui;
   max-width: 100ch;
@@ -17,11 +19,10 @@ img {
   height: auto;
 }
 
-/* Navigation */
+/* 2. Navigation Bar */
 nav {
   display: flex;
   margin-bottom: 1em;
-  --border-color: oklch(50% 10% 200 / 40%);
   border-bottom: 1px solid var(--border-color);
 }
 nav a {
@@ -40,7 +41,7 @@ nav a:hover {
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-/* Search bar */
+/* 3. Search Bar */
 .searchBar {
   width: 100%;
   box-sizing: border-box;
@@ -49,7 +50,7 @@ nav a:hover {
   margin-block: 1em;
 }
 
-/* Projects grid */
+/* 4. Projects Grid */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -64,18 +65,65 @@ nav a:hover {
   margin: 0;
 }
 
-/* Pie + legend layout */
+/* 5. Optional Details & Year Styling */
+.project-details {
+  display: flex;
+  flex-direction: column;
+}
+.project-year {
+  margin-top: 0.5em;
+  color: gray;
+  font-family: Baskerville, serif;
+  font-variant-numeric: oldstyle-nums;
+  font-size: 1em;
+}
+
+/* 6. Headings */
+h1 {
+  font-size: 400%;
+  line-height: 1.1;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* 7. Resume Page Styles */
+.resume header {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+.resume header h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.3em;
+}
+.resume section {
+  margin-bottom: 1.5em;
+}
+.resume section h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+.resume p {
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+/* 8. Pie Chart & Legend */
+
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
 }
+
 .chart-container {
   display: flex;
   align-items: flex-start;
   gap: 2em;
   margin-block: 2em;
 }
+
 .legend {
   display: grid;
   width: 100%;
@@ -83,13 +131,19 @@ nav a:hover {
   gap: 1em;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5em;
+  background: canvas;
 }
+
 .legend li {
   display: flex;
   align-items: center;
   gap: 0.5em;
+  cursor: default;
 }
+
 .legend .swatch {
   width: 1em;
   aspect-ratio: 1;
@@ -98,10 +152,21 @@ nav a:hover {
   display: inline-block;
 }
 
-/* Smooth fade on hover */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
+
 #projects-pie-plot path {
   transition: opacity 300ms;
+  cursor: default;
+}
+
+#projects-pie-plot path.selected {
+  --color: oklch(60% 45% 0) !important;
+  fill: var(--color);
+}
+
+.legend li.selected .swatch {
+  --color: oklch(60% 45% 0) !important;
+  background: var(--color);
 }
