@@ -2,57 +2,46 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 import { fetchJSON, renderProjects } from '../global.js';
 
 (async () => {
-  // — render the project list as before —
+  // Fetch and render project list
   const projects = await fetchJSON('../lib/projects.json');
+
   // Update the title with the count
-  const titleC = document.querySelector('.projects-title');
-  if (titleC) {
-    titleC.textContent = `${projects.length} Projects`;
+  const titleEl = document.querySelector('.projects-title');
+  if (titleEl) {
+    titleEl.textContent = `${projects.length} Projects`;
   }
-  
+
   const container = document.querySelector('.projects');
   renderProjects(projects, container, 'h2');
 
-  // === Step 1.3: Create an arc generator ===
+  // === Step 1: Arc generator for radius 50 ===
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
-  // === Step 1.4: Manually compute two‐slice pie data ===
-  let data = [1, 2];
-  // compute total
-  const total = data.reduce((sum, v) => sum + v, 0);
+  // === Step 2.1: Prepare data with labels ===
+  const data = projects.map(p => ({ value: 1, label: p.title }));
 
-  // determine start/end angles
-  let angle = 0;
-  const arcData = data.map((v) => {
-    const startAngle = angle;
-    const endAngle = angle + (v / total) * 2 * Math.PI;
-    angle = endAngle;
-    return { startAngle, endAngle };
-  });
+  // === Step 2.1: Slice generator using value accessor ===
+  const sliceGenerator = d3.pie().value(d => d.value);
+  const pieData = sliceGenerator(data);
+  const arcs = pieData.map(d => arcGenerator(d));
 
-  // generate path strings
-  const arcs = arcData.map((d) => arcGenerator(d));
-
-  // append them to the SVG
+  // Select SVG and set up color scale
   const svg = d3.select('#projects-pie-plot');
-  const colors = ['gold', 'purple'];
-  arcs.forEach((pathD, i) => {
-    svg.append('path')
-       .attr('d', pathD)
-       .attr('fill', colors[i]);
-  });
-
-  // === Step 1.5: Switch to d3.pie + ordinal color scale ===
-  data = [1,2,3,4,5,5];
-  const sliceGen = d3.pie();
-  const pieData = sliceGen(data);               
-  const arcs2 = pieData.map((d) => arcGenerator(d));
-  svg.selectAll('path').remove();             
-
   const colorScale = d3.scaleOrdinal(d3.schemeTableau10);
-  arcs2.forEach((pathD, i) => {
-    svg.append('path')
-       .attr('d', pathD)
-       .attr('fill', colorScale(i));
+
+  // Draw pie slices
+  svg.selectAll('path')
+    .data(arcs)
+    .enter()
+    .append('path')
+    .attr('d', d => d)
+    .attr('fill', (_, i) => colorScale(i));
+
+  // === Step 2.2: Build legend ===
+  const legend = d3.select('.legend');
+  data.forEach((d, i) => {
+    legend.append('li')
+      .attr('style', `--color:${colorScale(i)}`)
+      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
   });
 })();

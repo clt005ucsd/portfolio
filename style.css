@@ -177,9 +177,42 @@
     margin-bottom: 1em;
   }
 
-/* Step 1.1: limit pie‐chart SVG size */
-#projects-pie-plot {
-  max-width: 20em;
-  margin-block: 2em;
-  overflow: visible;
-}
+  /* ------------------------------------------
+     7. Projects Pie Chart
+  ------------------------------------------- */
+  #projects-pie-plot {
+    max-width: 20em;
+    margin-block: 2em;
+    overflow: visible;
+  }
+
+  .chart-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 2em;
+    margin-block: 2em;
+  }
+
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    gap: 1em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+  }
+
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .legend .swatch {
+    width: 1em;
+    aspect-ratio: 1;
+    background: var(--color);
+    border-radius: 0.2em;
+    display: inline-block;
+  }
