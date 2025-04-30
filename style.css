@@ -2,217 +2,204 @@
    1. System Color Scheme & Accent Color
 ------------------------------------------- */
 :root {
-    --color-accent: oklch(65% 50% 0);
-    /* Declare support for both light and dark modes */
-    color-scheme: light dark;
-  }
-  
-  /* ------------------------------------------
-     2. Base Styles
-  ------------------------------------------- */
-  body {
-    /* Use OS UI font, set line-height, and constrain width */
-    font: 100%/1.5 system-ui;
-    max-width: 100ch;
-    margin-inline: max(1em, (100% - 100ch) / 2);
-    padding: 0 1em;
-  
-    /* Automatic background & text colors per color-scheme */
-    background-color: canvas;
-    color: canvastext;
-  }
-  
-  /* Make all images scale down to their container width */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* ------------------------------------------
-     3. Navigation Bar (Steps 2.2 – 2.4 & Lab 3 Step 4)
-  ------------------------------------------- */
-  nav {
-    display: flex;
-    margin-bottom: 1em;
-    /* Use a semi-transparent border that looks good in both modes */
-    --border-color: oklch(50% 10% 200 / 40%);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  nav a {
-    flex: 1;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    padding: 0.5em;
-  }
-  
-  /* Highlight current page link */
-  nav a.current {
-    border-bottom: 0.4em solid var(--border-color);
-    padding-bottom: calc(0.5em - 0.4em);
-  }
-  
-  /* Hover uses accent color mixed into the background */
-  nav a:hover {
-    border-bottom: 0.4em solid var(--color-accent);
-    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
-  }
-  
-  /* ------------------------------------------
-     4. Form Styling (Steps 3.1 – 3.3)
-  ------------------------------------------- */
-  /* Inherit font */
-  form input,
-  form textarea,
-  form button,
-  select {
-    font: inherit;
-  }
-  
-  /* Block-level layout & full width */
-  form label,
-  form input,
-  form textarea,
-  form button {
-    display: block;
-  }
-  
-  form input,
-  form textarea,
-  form button {
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  form label {
-    margin-block: 0.5em;
-  }
-  
-  /* Grid layout for labels/controls */
-  form {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1em;
-  }
-  
-  form label {
-    display: contents;
-  }
-  
-  form button {
-    grid-column: 1 / -1;
-  }
-  
-  /* ------------------------------------------
-     5. Projects Page Grid (Steps 4.2 – 4.4)
-  ------------------------------------------- */
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
-    gap: 1em;
-  }
-  
-  .projects article {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 3;
-  }
-  
-  .projects article h2 {
-    margin: 0;
-  }
-  
-  /* Group the description and year in a vertical stack */
-  .project-details {
-    display: flex;
-    flex-direction: column;
-  }
+  --color-accent: oklch(65% 50% 0);
+  color-scheme: light dark;
+}
 
-  /* Style the year: gray, oldstyle numerals, a bit of breathing room */
-  .project-year {
-    margin-top: 0.5em;
-    color: gray;
-    /* Use a serif font; adjust as needed */
-    font-family: Baskerville, serif;
-    font-variant-numeric: oldstyle-nums;
-    font-size: 1em;
-  }
+/* ------------------------------------------
+   2. Base Styles
+------------------------------------------- */
+body {
+  font: 100%/1.5 system-ui;
+  max-width: 100ch;
+  margin-inline: max(1em, (100% - 100ch) / 2);
+  padding: 0 1em;
+  background-color: canvas;
+  color: canvastext;
+}
 
-  /* Make the <h1> much larger for contrast */
-  h1 {
-    font-size: 400%;
-  }
-  
-  /* Tight line-height for all headings */
-  h1, h2, h3, h4, h5, h6 {
-    line-height: 1.1;
-    text-wrap: balance;
-  }
-  
-  /* ------------------------------------------
-     6. Resume Page (Step 5)
-  ------------------------------------------- */
-  .resume header {
-    text-align: center;
-    margin-bottom: 1.5em;
-  }
-  
-  .resume header h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.3em;
-  }
-  
-  .resume section {
-    margin-bottom: 1.5em;
-  }
-  
-  .resume section h2 {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  
-  .resume p {
-    line-height: 1.5;
-    margin-bottom: 1em;
-  }
+img {
+  max-width: 100%;
+  height: auto;
+}
 
-  /* ------------------------------------------
-     7. Projects Pie Chart
-  ------------------------------------------- */
+/* ------------------------------------------
+   3. Navigation Bar
+------------------------------------------- */
+nav {
+  display: flex;
+  margin-bottom: 1em;
+  --border-color: oklch(50% 10% 200 / 40%);
+  border-bottom: 1px solid var(--border-color);
+}
+
+nav a {
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  padding: 0.5em;
+}
+
+nav a.current {
+  border-bottom: 0.4em solid var(--border-color);
+  padding-bottom: calc(0.5em - 0.4em);
+}
+
+nav a:hover {
+  border-bottom: 0.4em solid var(--color-accent);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
+
+/* ------------------------------------------
+   4. Form Styling
+------------------------------------------- */
+form input,
+form textarea,
+form button,
+select {
+  font: inherit;
+}
+
+form label,
+form input,
+form textarea,
+form button {
+  display: block;
+}
+
+form input,
+form textarea,
+form button {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form label {
+  margin-block: 0.5em;
+}
+
+form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+}
+
+form label {
+  display: contents;
+}
+
+form button {
+  grid-column: 1 / -1;
+}
+
+/* ------------------------------------------
+   5. Projects Page Grid
+------------------------------------------- */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+}
+
+.projects article {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.projects article h2 {
+  margin: 0;
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-year {
+  margin-top: 0.5em;
+  color: gray;
+  font-family: Baskerville, serif;
+  font-variant-numeric: oldstyle-nums;
+  font-size: 1em;
+}
+
+/* ------------------------------------------
+   6. Resume Page
+------------------------------------------- */
+.resume header {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+
+.resume header h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.3em;
+}
+
+.resume section {
+  margin-bottom: 1.5em;
+}
+
+.resume section h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.resume p {
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+/* ------------------------------------------
+   7. Projects Pie Chart & Legend
+------------------------------------------- */
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
 }
 
-  .chart-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 2em;
-    margin-block: 2em;
-  }
+.chart-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 2em;
+  margin-block: 2em;
+  width: 100%;
+}
 
-  .legend {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
-    gap: 1em;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex: 1;
-  }
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
 
-  .legend li {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-  }
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
 
-  .legend .swatch {
-    width: 1em;
-    aspect-ratio: 1;
-    background: var(--color);
-    border-radius: 0.2em;
-    display: inline-block;
-  }
+.legend .swatch {
+  width: 1em;
+  aspect-ratio: 1;
+  background: var(--color);
+  border-radius: 0.2em;
+  display: inline-block;
+}
+
+/* ------------------------------------------
+   8. Search Bar Styling
+------------------------------------------- */
+.searchBar {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5em;
+  font-size: 1rem;
+  margin-block: 1em;
+}
