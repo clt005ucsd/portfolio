@@ -177,7 +177,7 @@ export function renderProjects(projects, container, headingLevel = 'h2') {
     // Year
     const year = document.createElement('p');
     year.classList.add('project-year');
-    year.textContent = proj.year || '';
+    year.textContent = `c. ${proj.year || ''}`;
     details.append(year);
 
     article.append(details);

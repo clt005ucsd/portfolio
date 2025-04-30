@@ -136,7 +136,7 @@
     /* Use a serif font; adjust as needed */
     font-family: Baskerville, serif;
     font-variant-numeric: oldstyle-nums;
-    font-size: 0.9em;
+    font-size: 1em;
   }
 
   /* Make the <h1> much larger for contrast */
