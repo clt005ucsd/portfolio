@@ -23,10 +23,9 @@ import { fetchJSON, renderProjects } from '../global.js';
     (d) => d.year
   );
   // Map to objects with label & value
-  const data = rolledData.map(([year, count]) => ({
-    value: count,
-    label: year,
-  }));
+  let data = rolledData.map(([year, count]) => {
+    return { value: count, label: year };
+  });
 
   // Arc generator for radius 50
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);

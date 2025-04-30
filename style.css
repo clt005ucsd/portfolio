@@ -180,11 +180,11 @@
   /* ------------------------------------------
      7. Projects Pie Chart
   ------------------------------------------- */
-  #projects-pie-plot {
-    max-width: 20em;
-    margin-block: 2em;
-    overflow: visible;
-  }
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+}
 
   .chart-container {
     display: flex;
