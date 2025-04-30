@@ -1,14 +1,10 @@
-/* ------------------------------------------
-   1. System Color Scheme & Accent Color
-------------------------------------------- */
+/* 1. System Color Scheme & Accent Color */
 :root {
   --color-accent: oklch(65% 50% 0);
   color-scheme: light dark;
 }
 
-/* ------------------------------------------
-   2. Base Styles
-------------------------------------------- */
+/* 2. Base Styles */
 body {
   font: 100%/1.5 system-ui;
   max-width: 100ch;
@@ -23,9 +19,7 @@ img {
   height: auto;
 }
 
-/* ------------------------------------------
-   3. Navigation Bar
-------------------------------------------- */
+/* 3. Navigation Bar */
 nav {
   display: flex;
   margin-bottom: 1em;
@@ -51,9 +45,7 @@ nav a:hover {
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-/* ------------------------------------------
-   4. Form Styling
-------------------------------------------- */
+/* 4. Form Styling */
 form input,
 form textarea,
 form button,
@@ -93,9 +85,7 @@ form button {
   grid-column: 1 / -1;
 }
 
-/* ------------------------------------------
-   5. Projects Page Grid
-------------------------------------------- */
+/* 5. Projects Page Grid */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -125,9 +115,7 @@ form button {
   font-size: 1em;
 }
 
-/* ------------------------------------------
-   6. Resume Page
-------------------------------------------- */
+/* 6. Resume Page */
 .resume header {
   text-align: center;
   margin-bottom: 1.5em;
@@ -152,9 +140,7 @@ form button {
   margin-bottom: 1em;
 }
 
-/* ------------------------------------------
-   7. Projects Pie Chart & Legend
-------------------------------------------- */
+/* 7. Pie Chart & Legend */
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
@@ -169,6 +155,7 @@ form button {
   width: 100%;
 }
 
+/* Legend as responsive grid */
 .legend {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
@@ -193,13 +180,31 @@ form button {
   display: inline-block;
 }
 
-/* ------------------------------------------
-   8. Search Bar Styling
-------------------------------------------- */
+/* 8. Search Bar Styling */
 .searchBar {
   width: 100%;
   box-sizing: border-box;
   padding: 0.5em;
   font-size: 1rem;
   margin-block: 1em;
+}
+
+/* Pie Chart Interaction */
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+#projects-pie-plot path {
+  transition: opacity 300ms;
+  cursor: pointer;
+}
+
+#projects-pie-plot path.selected {
+  --color: oklch(60% 45% 0) !important;
+  fill: var(--color) !important;
+}
+
+.legend li.selected .swatch {
+  --color: oklch(60% 45% 0) !important;
+  background: var(--color) !important;
 }
