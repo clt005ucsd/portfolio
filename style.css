@@ -123,6 +123,22 @@
     margin: 0;
   }
   
+  /* Group the description and year in a vertical stack */
+  .project-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Style the year: gray, oldstyle numerals, a bit of breathing room */
+  .project-year {
+    margin-top: 0.5em;
+    color: gray;
+    /* Use a serif font; adjust as needed */
+    font-family: Baskerville, serif;
+    font-variant-numeric: oldstyle-nums;
+    font-size: 0.9em;
+  }
+
   /* Make the <h1> much larger for contrast */
   h1 {
     font-size: 400%;

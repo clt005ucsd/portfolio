@@ -140,20 +140,24 @@ export function renderProjects(projects, container, headingLevel = 'h2') {
     console.error('renderProjects: invalid container', container);
     return;
   }
-  // Clear existing
+
+  // Clear out any old content
   container.innerHTML = '';
-  // If no projects, show placeholder
+
+  // If no data, show placeholder
   if (!projects.length) {
     container.textContent = 'No projects to display.';
     return;
   }
+
+  // Loop over each project
   for (const proj of projects) {
     const article = document.createElement('article');
 
-    // Dynamic heading
-    const h = document.createElement(headingLevel);
-    h.textContent = proj.title || '';
-    article.append(h);
+    // Title
+    const titleEl = document.createElement(headingLevel);
+    titleEl.textContent = proj.title || '';
+    article.append(titleEl);
 
     // Image
     const img = document.createElement('img');
@@ -161,11 +165,22 @@ export function renderProjects(projects, container, headingLevel = 'h2') {
     img.alt = proj.title || '';
     article.append(img);
 
-    // Description
-    const p = document.createElement('p');
-    p.textContent = proj.description || '';
-    article.append(p);
+    // Wrap description + year together
+    const details = document.createElement('div');
+    details.classList.add('project-details');
 
+    // Description
+    const desc = document.createElement('p');
+    desc.textContent = proj.description || '';
+    details.append(desc);
+
+    // Year
+    const year = document.createElement('p');
+    year.classList.add('project-year');
+    year.textContent = proj.year || '';
+    details.append(year);
+
+    article.append(details);
     container.append(article);
   }
 }
