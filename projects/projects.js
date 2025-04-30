@@ -71,13 +71,12 @@ let selectedIndex = -1;
             .selectAll('li')
             .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : null);
         
-        const projectsContainer = document.querySelector('.projects');
         if (selectedIndex === -1) {
             renderProjects(projects, projectsContainer, 'h2');
         } else {
             const year = data[selectedIndex].label;
             renderProjects(
-                projects.filter((p) => p.year === year),
+                projects.filter(p => p.year === year),
                 projectsContainer,
                 'h2'
             );
