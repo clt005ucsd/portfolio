@@ -112,21 +112,30 @@ nav a:hover {
   display: inline-block;
 }
 
-/* Hover fade & smooth transition */
+/* 5.1: Fade out non-hovered slices */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
+
+/* 5.1: Soft transition & pointer */
 #projects-pie-plot path {
   transition: opacity 300ms;
   cursor: pointer;
 }
 
-/* Sticky‐selection highlight */
+/* 5.2: Sticky highlight for clicked slice */
 #projects-pie-plot path.selected {
   --color: oklch(60% 45% 0) !important;
-  fill: var(--color) !important;
+  fill: var(--color);
 }
+
+/* 5.2: Highlight legend swatch */
 .legend li.selected .swatch {
   --color: oklch(60% 45% 0) !important;
-  background: var(--color) !important;
+  background: var(--color);
+}
+
+/* Ensure legend items are also clickable */
+.legend li {
+  cursor: pointer;
 }
