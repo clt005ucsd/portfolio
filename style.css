@@ -182,7 +182,4 @@
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
-  /* add a light border to frame it */
-  border: 1px solid oklch(80% 3% 200);
-  border-radius: 0.5em;
 }
