@@ -1,8 +1,12 @@
+/* style.css */
+
+/* 1. Color scheme & accent */
 :root {
   --color-accent: oklch(65% 50% 0);
   color-scheme: light dark;
 }
 
+/* 2. Base/reset */
 body {
   font: 100%/1.5 system-ui;
   max-width: 100ch;
@@ -11,16 +15,16 @@ body {
   background-color: canvas;
   color: canvastext;
 }
-
 img {
   max-width: 100%;
   height: auto;
 }
 
+/* 3. Nav */
 nav {
   display: flex;
   margin-bottom: 1em;
-  --border-color: oklch(50% 10% 200 / 40%);
+  --border-color: oklch(50% 10% 200/40%);
   border-bottom: 1px solid var(--border-color);
 }
 nav a {
@@ -39,21 +43,14 @@ nav a:hover {
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-form input,
-form textarea,
-form button,
-select {
+/* 4. Forms */
+form input, form textarea, form button, select {
   font: inherit;
 }
-form label,
-form input,
-form textarea,
-form button {
+form label, form input, form textarea, form button {
   display: block;
 }
-form input,
-form textarea,
-form button {
+form input, form textarea, form button {
   width: 100%;
   box-sizing: border-box;
 }
@@ -65,30 +62,18 @@ form {
   grid-template-columns: auto 1fr;
   gap: 1em;
 }
-form label {
-  display: contents;
-}
-form button {
-  grid-column: 1 / -1;
-}
+form label { display: contents; }
+form button { grid-column: 1 / -1; }
 
+/* 5. Projects grid */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15em,1fr));
   gap: 1em;
 }
-.projects article {
-  display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 3;
-}
-.projects article h2 {
-  margin: 0;
-}
-.project-details {
-  display: flex;
-  flex-direction: column;
-}
+.projects article { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
+.projects article h2 { margin: 0; }
+.project-details { display: flex; flex-direction: column; }
 .project-year {
   margin-top: 0.5em;
   color: gray;
@@ -97,32 +82,19 @@ form button {
   font-size: 1em;
 }
 
-.resume header {
-  text-align: center;
-  margin-bottom: 1.5em;
-}
-.resume header h1 {
-  font-size: 2.5em;
-  margin-bottom: 0.3em;
-}
-.resume section {
-  margin-bottom: 1.5em;
-}
-.resume section h2 {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
-}
-.resume p {
-  line-height: 1.5;
-  margin-bottom: 1em;
-}
+/* 6. Resume */
+.resume header { text-align: center; margin-bottom: 1.5em; }
+.resume header h1 { font-size: 2.5em; margin-bottom: 0.3em; }
+.resume section { margin-bottom: 1.5em; }
+.resume section h2 { font-size: 1.5em; margin-bottom: 0.5em; }
+.resume p { line-height: 1.5; margin-bottom: 1em; }
 
+/* 7. Pie + legend */
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
 }
-
 .chart-container {
   display: flex;
   align-items: flex-start;
@@ -130,17 +102,14 @@ form button {
   margin-block: 2em;
   width: 100%;
 }
-
-/* make legend a full-width grid */
 .legend {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(9em,1fr));
   gap: 1em;
   list-style: none;
-  padding: 0;
   margin: 0;
-  flex: 1;
+  padding: 0;
 }
 .legend li {
   display: flex;
@@ -155,7 +124,7 @@ form button {
   display: inline-block;
 }
 
-/* full-width search bar */
+/* 8. Search bar */
 .searchBar {
   width: 100%;
   box-sizing: border-box;
@@ -164,7 +133,7 @@ form button {
   margin-block: 1em;
 }
 
-/* hover-fade & transitions */
+/* 9. Pie interaction */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
