@@ -46,9 +46,10 @@ let selectedIndex = -1;
             .on('click', (_, i) => {
                 // toggle selection
                 selectedIndex = (selectedIndex === i ? -1 : i);
-                svg.selectAll('path')
-                    .classed('selected', (_, idx) => idx === selectedIndex);
-            });
+                svg
+                .selectAll('path')
+                .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : null);
+        });
 
     // draw legend
     data.forEach((d, i) => {
