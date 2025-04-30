@@ -32,19 +32,26 @@ let allProjects = [];
 
 // Re-filter by search + selected slice, then re-draw both list and chart
 function applyFilters() {
-  let filtered = allProjects.filter((p) =>
-    Object.values(p).join('\n').toLowerCase().includes(query)
-  );
-
-  // If a slice is selected, further filter by its year label
-  if (selectedIndex !== -1 && window._pieLabels) {
-    const selYear = window._pieLabels[selectedIndex];
-    filtered = filtered.filter((p) => p.year === selYear);
+    // Apply the search‐query filter to everything:
+    let filtered = allProjects.filter((p) =>
+      Object.values(p)
+        .join('\n')
+        .toLowerCase()
+        .includes(query)
+    );
+  
+    // If a pie slice is selected, filter *that* result by the selected year:
+    if (selectedIndex !== -1 && window._pieLabels) {
+      const selYear = window._pieLabels[selectedIndex];
+      filtered = filtered.filter((p) => p.year === selYear);
+    }
+  
+    // Render the list of projects that survived both filters:
+    renderProjects(filtered, document.querySelector('.projects'), 'h2');
+  
+    // Finally re‐draw the pie chart based on the same filtered array:
+    renderPieChart(filtered);
   }
-
-  renderProjects(filtered, document.querySelector('.projects'), 'h2');
-  renderPieChart(filtered);
-}
 
 // Draw (or re-draw) pie + legend with slice‐click and legend‐click interactivity
 function renderPieChart(dataProjects) {
