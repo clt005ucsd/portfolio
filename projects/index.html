@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clayton Hammen Tan: Projects</title>
-  <link rel="stylesheet" href="/portfolio/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Clayton Hammen Tan: Projects</title>
+    <link rel="stylesheet" href="/portfolio/style.css" />
 </head>
 <body>
 
-  <!-- Title -->
-  <h1 class="projects-title">Projects</h1>
+    <!-- Title -->
+    <h1 class="projects-title">Projects</h1>
 
-  <!-- Pie chart + legend -->
-  <div class="chart-container">
-    <svg
-      id="projects-pie-plot"
-      viewBox="-50 -50 100 100"
-      aria-label="Pie chart of project distribution"
-    ></svg>
-    <ul class="legend"></ul>
-  </div>
+    <!-- Pie chart + legend -->
+    <div class="chart-container">
+        <svg
+        id="projects-pie-plot"
+        viewBox="-50 -50 100 100"
+        aria-label="Pie chart of project distribution"
+        ></svg>
+        <ul class="legend"></ul>
+    </div>
 
-  <!-- Project list -->
-  <div class="projects"><!-- Articles will be injected here --></div>
+    <input
+        class="searchBar"
+        type="search"
+        aria-label="Search projects"
+        placeholder="🔍 Search projects…"
+    />
 
-  <!-- Scripts -->
-  <script type="module" src="../global.js"></script>
-  <script type="module" src="./projects.js"></script>
+    <!-- Project list -->
+    <div class="projects"><!-- Articles will be injected here --></div>
+
+    <!-- Scripts -->
+    <script type="module" src="../global.js"></script>
+    <script type="module" src="./projects.js"></script>
 </body>
 </html>
