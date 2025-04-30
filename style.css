@@ -21,7 +21,7 @@ img {
 nav {
   display: flex;
   margin-bottom: 1em;
-  --border-color: oklch(50% 10% 200/40%);
+  --border-color: oklch(50% 10% 200 / 40%);
   border-bottom: 1px solid var(--border-color);
 }
 nav a {
@@ -40,7 +40,7 @@ nav a:hover {
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-/* Search */
+/* Search bar */
 .searchBar {
   width: 100%;
   box-sizing: border-box;
@@ -52,7 +52,7 @@ nav a:hover {
 /* Projects grid */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15em,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   gap: 1em;
 }
 .projects article {
@@ -63,37 +63,23 @@ nav a:hover {
 .projects article h2 {
   margin: 0;
 }
-.project-details {
-  display: flex;
-  flex-direction: column;
-}
-.project-year {
-  margin-top: 0.5em;
-  color: gray;
-  font-family: Baskerville, serif;
-  font-variant-numeric: oldstyle-nums;
-  font-size: 1em;
-}
 
-/* Pie + Legend */
+/* Pie + legend layout */
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
 }
-
 .chart-container {
   display: flex;
   align-items: flex-start;
   gap: 2em;
   margin-block: 2em;
-  width: 100%;
 }
-
 .legend {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(9em,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
   gap: 1em;
   list-style: none;
   margin: 0;
@@ -112,30 +98,10 @@ nav a:hover {
   display: inline-block;
 }
 
-/* 5.1: Fade out non-hovered slices */
+/* Smooth fade on hover */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
-
-/* 5.1: Soft transition & pointer */
 #projects-pie-plot path {
   transition: opacity 300ms;
-  cursor: pointer;
-}
-
-/* 5.2: Sticky highlight for clicked slice */
-#projects-pie-plot path.selected {
-  --color: oklch(60% 45% 0) !important;
-  fill: var(--color);
-}
-
-/* 5.2: Highlight legend swatch */
-.legend li.selected .swatch {
-  --color: oklch(60% 45% 0) !important;
-  background: var(--color);
-}
-
-/* Ensure legend items are also clickable */
-.legend li {
-  cursor: pointer;
 }
