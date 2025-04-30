@@ -1,12 +1,8 @@
-/* style.css */
-
-/* 1. Color scheme & accent */
 :root {
   --color-accent: oklch(65% 50% 0);
   color-scheme: light dark;
 }
 
-/* 2. Base/reset */
 body {
   font: 100%/1.5 system-ui;
   max-width: 100ch;
@@ -15,12 +11,13 @@ body {
   background-color: canvas;
   color: canvastext;
 }
+
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* 3. Nav */
+/* Navigation */
 nav {
   display: flex;
   margin-bottom: 1em;
@@ -43,37 +40,33 @@ nav a:hover {
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-/* 4. Forms */
-form input, form textarea, form button, select {
-  font: inherit;
-}
-form label, form input, form textarea, form button {
-  display: block;
-}
-form input, form textarea, form button {
+/* Search */
+.searchBar {
   width: 100%;
   box-sizing: border-box;
+  padding: 0.5em;
+  font-size: 1rem;
+  margin-block: 1em;
 }
-form label {
-  margin-block: 0.5em;
-}
-form {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1em;
-}
-form label { display: contents; }
-form button { grid-column: 1 / -1; }
 
-/* 5. Projects grid */
+/* Projects grid */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em,1fr));
   gap: 1em;
 }
-.projects article { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
-.projects article h2 { margin: 0; }
-.project-details { display: flex; flex-direction: column; }
+.projects article {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+.projects article h2 {
+  margin: 0;
+}
+.project-details {
+  display: flex;
+  flex-direction: column;
+}
 .project-year {
   margin-top: 0.5em;
   color: gray;
@@ -82,19 +75,13 @@ form button { grid-column: 1 / -1; }
   font-size: 1em;
 }
 
-/* 6. Resume */
-.resume header { text-align: center; margin-bottom: 1.5em; }
-.resume header h1 { font-size: 2.5em; margin-bottom: 0.3em; }
-.resume section { margin-bottom: 1.5em; }
-.resume section h2 { font-size: 1.5em; margin-bottom: 0.5em; }
-.resume p { line-height: 1.5; margin-bottom: 1em; }
-
-/* 7. Pie + legend */
+/* Pie + Legend */
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
 }
+
 .chart-container {
   display: flex;
   align-items: flex-start;
@@ -102,6 +89,7 @@ form button { grid-column: 1 / -1; }
   margin-block: 2em;
   width: 100%;
 }
+
 .legend {
   display: grid;
   width: 100%;
@@ -124,16 +112,7 @@ form button { grid-column: 1 / -1; }
   display: inline-block;
 }
 
-/* 8. Search bar */
-.searchBar {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.5em;
-  font-size: 1rem;
-  margin-block: 1em;
-}
-
-/* 9. Pie interaction */
+/* Hover fade & smooth transition */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
@@ -141,6 +120,8 @@ form button { grid-column: 1 / -1; }
   transition: opacity 300ms;
   cursor: pointer;
 }
+
+/* Sticky‐selection highlight */
 #projects-pie-plot path.selected {
   --color: oklch(60% 45% 0) !important;
   fill: var(--color) !important;
