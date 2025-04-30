@@ -38,16 +38,26 @@ let selectedIndex = -1;
       .classed('selected', false);
 
     slice.on('click', () => {
-      // toggle selection index
-      selectedIndex = (selectedIndex === i ? -1 : i);
+        selectedIndex = (selectedIndex === i ? -1 : i);
 
-      // re-apply .selected to slices
-      svg.selectAll('path')
-         .classed('selected', (_, idx) => idx === selectedIndex);
+        svg
+            .selectAll('path')
+            .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : null);
 
-      // re-apply .selected to legend items
-      legend.selectAll('li')
-            .classed('selected', (_, idx) => idx === selectedIndex);
+        legend
+            .selectAll('li')
+            .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : null);
+        
+        if (selectedIndex === -1) {
+            renderProjects(projects, projectsContainer, 'h2');
+        } else {
+            const year = data[selectedIndex].label;
+            renderProjects(
+                projects.filter(p => p.year === year),
+                projectsContainer,
+                'h2'
+            );
+        }
     });
   });
 
