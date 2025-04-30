@@ -36,18 +36,19 @@ let selectedIndex = -1;
 
     // draw slices
     svg.selectAll('path')
-      .data(arcs)
-      .enter()
-      .append('path')
-        .attr('d', d => d)
-        .attr('fill', (_, i) => colorScale(i))
-        .attr('cursor', 'pointer')
-        .classed('selected', (_, i) => i === selectedIndex)
-        .on('click', (_, i) => {
-          // toggle selection
-          selectedIndex = (selectedIndex === i ? -1 : i);
-          draw(); // re-render everything
-        });
+        .data(arcs)
+        .enter()
+        .append('path')
+            .attr('d', d => d)
+            .attr('fill', (_, i) => colorScale(i))
+            .attr('cursor', 'pointer')
+            .classed('selected', (_, i) => i === selectedIndex)
+            .on('click', (_, i) => {
+                // toggle selection
+                selectedIndex = (selectedIndex === i ? -1 : i);
+                svg.selectAll('path')
+                    .classed('selected', (_, idx) => idx === selectedIndex);
+            });
 
     // draw legend
     data.forEach((d, i) => {
