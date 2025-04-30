@@ -55,19 +55,21 @@ let selectedIndex = -1;
   legend.selectAll('li').remove();
   data.forEach((d, i) => {
     const item = legend.append('li')
-      .attr('cursor', 'pointer')
-      .attr('style', `--color:${colorScale(i)}`)
-      .classed('selected', false)
-      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
+        .attr('cursor', 'pointer')
+        .attr('style', `--color:${colorScale(i)}`)
+        .classed('selected', false)
+        .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
 
     item.on('click', () => {
-      selectedIndex = (selectedIndex === i ? -1 : i);
+        selectedIndex = (selectedIndex === i ? -1 : i);
 
-      svg.selectAll('path')
-         .classed('selected', (_, idx) => idx === selectedIndex);
+        svg
+            .selectAll('path')
+            .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : null);
 
-      legend.selectAll('li')
-            .classed('selected', (_, idx) => idx === selectedIndex);
+        legend
+            .selectAll('li')
+            .attr('class', (_, idx) => idx === selectedIndex ? 'selected' : null);
     });
   });
 })();
