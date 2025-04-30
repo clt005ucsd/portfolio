@@ -159,15 +159,14 @@ h1, h2, h3, h4, h5, h6 {
 #projects-pie-plot path {
   transition: opacity 300ms;
   cursor: pointer;
+  .legend li {
+    cursor: pointer;
+  }
 }
 
 #projects-pie-plot path.selected {
   --color: oklch(60% 45% 0) !important;
   fill: var(--color) !important;
-}
-
-.legend li {
-  cursor: pointer;
 }
 
 .legend li.selected .swatch {
