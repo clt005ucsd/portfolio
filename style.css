@@ -179,3 +179,16 @@ h1, h2, h3, h4, h5, h6 {
   --color: var(--highlight-color) !important;
   background: var(--color) !important;
 }
+
+.stats {
+  margin-block: 2em;
+}
+
+.stats dt {
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+.stats dd {
+  margin: 0 0 0.5em 1em;
+}
