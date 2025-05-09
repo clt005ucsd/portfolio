@@ -82,7 +82,92 @@ function renderStats(data) {
   dl.append('dd').text(busiestDay);
 }
 
-(async () => {
-  const data = await loadData();
-  renderStats(data);
-})();
+function processCommits(data) {
+    // group by commit
+    return d3.groups(data, d => d.commit).map(([id, lines]) => {
+      const first = lines[0];
+      return {
+        id,
+        author:    first.author,
+        datetime:  first.datetime,
+        hourFrac:  first.datetime.getHours() + first.datetime.getMinutes() / 60,
+        totalLines: lines.length,
+        // …you can hide lines via defineProperty if you like…
+      };
+    });
+  }
+  
+  function renderScatterPlot(data, commits) {
+    // 2.1 Dimensions + margins
+    const width  = 1000;
+    const height = 600;
+    const margin = { top: 10, right: 10, bottom: 30, left: 40 };
+  
+    const usable = {
+      left:   margin.left,
+      right:  width  - margin.right,
+      top:    margin.top,
+      bottom: height - margin.bottom,
+      width:  width  - margin.left - margin.right,
+      height: height - margin.top  - margin.bottom,
+    };
+  
+    // 2.1 Scales
+    const xScale = d3.scaleTime()
+      .domain(d3.extent(commits, d => d.datetime))
+      .range([usable.left, usable.right])
+      .nice();
+  
+    const yScale = d3.scaleLinear()
+      .domain([0, 24])
+      .range([usable.bottom, usable.top]);
+  
+    // 2.1 Create SVG
+    const svg = d3.select('#chart')
+      .append('svg')
+        .attr('viewBox', `0 0 ${width} ${height}`)
+        .style('overflow', 'visible');
+  
+    // 2.3 Gridlines (horizontal)
+    svg.append('g')
+      .attr('class', 'gridlines')
+      .attr('transform', `translate(${usable.left},0)`)
+      .call(
+        d3.axisLeft(yScale)
+          .tickFormat('')
+          .tickSize(-usable.width)
+      );
+    
+    svg.selectAll('.gridlines .tick line')
+      .attr('stroke', d => (d < 6 || d >= 18) ? 'steelblue' : 'orange');
+  
+    // 2.2 Axes
+    svg.append('g')
+      .attr('transform', `translate(0,${usable.bottom})`)
+      .call(d3.axisBottom(xScale));
+  
+    svg.append('g')
+      .attr('transform', `translate(${usable.left},0)`)
+      .call(
+        d3.axisLeft(yScale)
+          .tickFormat(d => String(d % 24).padStart(2, '0') + ':00')
+      );
+  
+    // 2.1 & 2.2 Dots
+    svg.append('g')
+      .attr('class', 'dots')
+      .selectAll('circle')
+      .data(commits)
+      .join('circle')
+        .attr('cx', d => xScale(d.datetime))
+        .attr('cy', d => yScale(d.hourFrac))
+        .attr('r', 4)
+        .attr('fill', 'steelblue');
+  }
+  
+  (async () => {
+    const data    = await loadData();
+    const commits = processCommits(data);
+    renderStats(data, commits);
+    renderScatterPlot(data, commits);
+  })();
