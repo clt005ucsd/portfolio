@@ -251,9 +251,9 @@ function renderScatterPlot(data, commits) {
     svg.selectAll('.dots, .overlay ~ *').raise();
   }
   
-;(async () => {
+  (async()=>{
     const data = await loadData();
     const commits = processCommits(data);
     renderStats(data);
     renderScatterPlot(data, commits);
-})();
+  })();
