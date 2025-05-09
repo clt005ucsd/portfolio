@@ -1,5 +1,6 @@
 // meta/main.js
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import { brush } from 'https://cdn.jsdelivr.net/npm/d3-brush@3/+esm';
 
 // 3.1: load + parse CSV
 async function loadData() {
@@ -118,6 +119,37 @@ function updateTooltipPosition(event) {
     tt.style.left = (event.clientX + 10) + 'px';
     tt.style.top  = (event.clientY + 10) + 'px';
   }
+
+function renderSelectionCount(selection, commits) {
+    const selected = selection
+      ? commits.filter(d => isCommitSelected(selection, d))
+      : [];
+    d3.select('#selection-count')
+      .text(selected.length ? `${selected.length} commits selected` : 'No commits selected');
+  }
+  
+function renderLanguageBreakdown(selection, commits) {
+    const container = document.getElementById('language-breakdown');
+    if (!selection) { container.innerHTML = ''; return; }
+    const sel = commits.filter(d => isCommitSelected(selection, d));
+    if (!sel.length) { container.innerHTML = ''; return; }
+    // assume original lines array is on commit.lines
+    const allLines = sel.flatMap(d => d.lines || []);
+    const breakdown = d3.rollup(allLines, v => v.length, d => d.type);
+    container.innerHTML = '';
+    for (const [lang, cnt] of breakdown) {
+      const pct = d3.format('.1~%')(cnt / allLines.length);
+      container.innerHTML += `<dt>${lang}</dt><dd>${cnt} lines (${pct})</dd>`;
+    }
+  }
+  
+function isCommitSelected(selection, d, xScale, yScale) {
+    if (!selection) return false;
+    const [[x0,y0],[x1,y1]] = selection;
+    const cx = xScale(d.datetime), cy = yScale(d.hourFrac);
+    return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
+  }
+
 function renderScatterPlot(data, commits) {
     // 2.1 Dimensions + margins
     const width  = 1000;
@@ -202,6 +234,21 @@ function renderScatterPlot(data, commits) {
           d3.select(event.currentTarget).style('fill-opacity', 0.7);
           updateTooltipVisibility(false);
         });
+    
+    const b = brush()
+        .extent([[0,0],[width,height]])
+        .on('brush end', ({selection}) => {
+          // highlight dots
+          dots.classed('selected', d=>isCommitSelected(selection,d,xScale,yScale));
+          // update counts & breakdown
+          renderSelectionCount(selection, commits);
+          renderLanguageBreakdown(selection, commits);
+        });
+    
+    svg.call(b);
+    
+    // put dots & axes on top of overlay
+    svg.selectAll('.dots, .overlay ~ *').raise();
   }
   
 ;(async () => {
