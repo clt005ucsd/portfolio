@@ -202,3 +202,51 @@ h1, h2, h3, h4, h5, h6 {
 .gridlines path {
   stroke-width: 0;
 }
+
+/* -------- Tooltip styling -------- */
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25em 1em;
+  margin: 0;
+  padding: 0.5em 1em;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 0.5em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition-property: opacity, visibility;
+  transition-duration: 300ms;
+}
+
+dl.info dt {
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+dl.info dd {
+  margin: 0;
+}
+
+dl.info.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* hide when [hidden] unless hovered/focused */
+dl.info[hidden]:not(:hover):not(:focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* -------- Dot hover effect -------- */
+circle {
+  transition: transform 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+}

@@ -1,16 +1,16 @@
 // meta/main.js
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 
+// 3.1: load + parse CSV
 async function loadData() {
-  // Parse numbers and dates
-  return await d3.csv('loc.csv', row => ({
-    ...row,
-    line:     +row.line,
-    depth:    +row.depth,
-    length:   +row.length,
-    datetime: new Date(row.datetime),
-  }));
-}
+    return d3.csv('loc.csv', row => ({
+      ...row,
+      line:     +row.line,
+      depth:    +row.depth,
+      length:   +row.length,
+      datetime: new Date(row.datetime),
+    }));
+  }
 
 function renderStats(data) {
   const dl = d3.select('#stats')
@@ -83,21 +83,42 @@ function renderStats(data) {
 }
 
 function processCommits(data) {
-    // group by commit
     return d3.groups(data, d => d.commit).map(([id, lines]) => {
       const first = lines[0];
       return {
         id,
-        author:    first.author,
-        datetime:  first.datetime,
-        hourFrac:  first.datetime.getHours() + first.datetime.getMinutes() / 60,
+        url: `https://github.com/clt005/portfolio/commit/${id}`,
+        author:     first.author,
+        datetime:   first.datetime,
+        hourFrac:   first.datetime.getHours() + first.datetime.getMinutes()/60,
         totalLines: lines.length,
-        // …you can hide lines via defineProperty if you like…
       };
     });
   }
   
-  function renderScatterPlot(data, commits) {
+// --- Step 3.1: renderTooltipContent ---
+function renderTooltipContent(commit) {
+    if (!commit || !commit.id) return;
+    document.getElementById('commit-link').href       = commit.url;
+    document.getElementById('commit-link').textContent = commit.id;
+    document.getElementById('commit-date').textContent = commit.datetime.toLocaleDateString();
+    document.getElementById('commit-time').textContent = commit.datetime.toLocaleTimeString();
+    document.getElementById('commit-author').textContent = commit.author;
+    document.getElementById('commit-lines').textContent  = commit.totalLines;
+  }
+  
+// Step 3.3: visibility toggle
+function updateTooltipVisibility(isVisible) {
+    document.getElementById('commit-tooltip').hidden = !isVisible;
+  }
+  
+// Step 3.4: position near cursor
+function updateTooltipPosition(event) {
+    const tt = document.getElementById('commit-tooltip');
+    tt.style.left = (event.clientX + 10) + 'px';
+    tt.style.top  = (event.clientY + 10) + 'px';
+  }
+function renderScatterPlot(data, commits) {
     // 2.1 Dimensions + margins
     const width  = 1000;
     const height = 600;
@@ -155,15 +176,23 @@ function processCommits(data) {
   
     // 2.1 & 2.2 Dots
     svg.append('g')
-      .attr('class', 'dots')
-      .selectAll('circle')
-      .data(commits)
-      .join('circle')
-        .attr('cx', d => xScale(d.datetime))
-        .attr('cy', d => yScale(d.hourFrac))
-        .attr('r', 4)
-        .attr('fill', 'steelblue');
-  }
+    .attr('class','dots')
+    .selectAll('circle')
+    .data(commits)
+    .join('circle')
+      .attr('cx', d => xScale(d.datetime))
+      .attr('cy', d => yScale(d.hourFrac))
+      .attr('r', 5)
+      .attr('fill','steelblue')
+      .on('mouseenter', (event, commit) => {
+        renderTooltipContent(commit);
+        updateTooltipPosition(event);
+        updateTooltipVisibility(true);
+      })
+      .on('mouseleave', () => {
+        updateTooltipVisibility(false);
+      });
+}
   
   (async () => {
     const data    = await loadData();
