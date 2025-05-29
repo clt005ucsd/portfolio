@@ -4,21 +4,46 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clayton Hammen Tan: Meta</title>
-  <link rel="stylesheet" href="/portfolio/style.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <h1>Meta</h1>
   <p>This page includes stats about the code of this website.</p>
+
+  <div class="commit-filter-container">
+    <label for="commit-progress">
+      Show commits until:
+      <input
+        id="commit-progress"
+        type="range"
+        min="0"
+        max="100"
+        value="100"
+      />
+    </label>
+    <time id="commit-time"></time>
+  </div>
 
   <!-- placeholder for summary stats -->
   <div id="stats"></div>
 
   <!-- Step 2 scatterplot -->
   <h2>Commits by time of day</h2>
-  <div id="chart"></div>
+  <div id="scrolly-1">
+    <div id="scatter-story">
+      <p>Here's where we tell the story of commit activity over time…</p>
+      <!-- you’ll swap in real text per step below -->
+    </div>
+  
+    <div id="scatter-plot">
+      <!-- your existing #chart div (and any brush stats) goes here -->
+      <div id="chart"></div>
+      <div id="selection-count"></div>
+      <dl id="language-breakdown"></dl>
+    </div>
+  </div>
 
   <!-- selection info -->
-  <p id="selection-count">No commits selected</p>
   <dl id="language-breakdown" class="stats"></dl>
 
   <!-- Step 3.1: static tooltip -->
@@ -36,8 +61,11 @@
   </dl>
 
   <!-- nav + globals -->
-  <script type="module" src="/portfolio/global.js"></script>
+  <script type="module" src="../global.js"></script>
   <!-- your D3 stats + tooltip code -->
   <script type="module" src="main.js"></script>
+
+  <dl id="files"></dl>
+
 </body>
 </html>

@@ -1,5 +1,12 @@
 [
     {
+        "title": "Bikewatching",
+        "year": "2025",
+        "description": "Interactive Mapbox + D3 app showing Boston bike-share traffic by time of day.",
+        "image": "images/bikewatching image.png",
+        "url": "https://yourname.github.io/bikewatching"
+      },
+    {
         "title": "DSC 106 Project 2",
         "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
